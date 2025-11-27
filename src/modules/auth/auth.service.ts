@@ -6,6 +6,7 @@ import {v4 as uuid} from "uuid"
 import { JwtService } from '@nestjs/jwt';
 import "dotenv/config"
 import { LoginDto } from './dto/login.dto';
+import { CustomBadRequest } from 'src/custom-exceptions/custom.badRequest';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,8 @@ export class AuthService {
     async register(payload: RegisterDto){
         const existedUser = this.users.find(el => el.email === payload.email)
         if(existedUser){
-            throw new ConflictException(`THIS USER ALREADY EXISTS IN THE DATABASE!`)
+            throw new CustomBadRequest(`THIS USER ALREADY EXISTS IN THE DATABASE!`)
+            // throw new ConflictException(`THIS USER ALREADY EXISTS IN THE DATABASE!`)
         }
         const hashedPassword = await bcrypt.hash(payload.password, 10)
         payload.password = hashedPassword
