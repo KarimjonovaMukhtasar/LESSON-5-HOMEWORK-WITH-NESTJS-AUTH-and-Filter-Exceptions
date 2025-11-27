@@ -8,6 +8,7 @@ import "dotenv/config"
 import { LoginDto } from './dto/login.dto';
 import { CustomBadRequest } from 'src/custom-exceptions/custom.badRequest';
 
+
 @Injectable()
 export class AuthService {
     constructor(private jwtService: JwtService){}
