@@ -24,11 +24,11 @@ export class AuthService {
         const id = uuid()
         const newUser = {...payload, id}
         this.users.push(newUser)
-        const accessToken = await this.jwtService.signAsync({ id: newUser.id }, {
+        const accessToken = await this.jwtService.signAsync({ id: newUser.id, role: newUser.role }, {
         secret: process.env.JWT_ACCESS_SECRET,
         expiresIn: '7d'})
 
-        const refreshToken = await this.jwtService.signAsync({id: newUser.id}, {
+        const refreshToken = await this.jwtService.signAsync({id: newUser.id, role: newUser.role}, {
             secret: process.env.JWT_REFRESH_SECRET,
             expiresIn: '30d'})
         return {
@@ -48,11 +48,11 @@ export class AuthService {
         if(!checkPassword){
             throw new NotFoundException(`EMAIL OR PASSWORD IS WRONG!`)
         }
-        const accessToken = await this.jwtService.signAsync({ id: user.id }, {
+        const accessToken = await this.jwtService.signAsync({ id: user.id, role: user.role }, {
         secret: process.env.JWT_ACCESS_SECRET,
         expiresIn: '7d'})
 
-        const refreshToken = await this.jwtService.signAsync({id: user.id}, {
+        const refreshToken = await this.jwtService.signAsync({id: user.id, role: user.role}, {
             secret: process.env.JWT_REFRESH_SECRET,
             expiresIn: '30d'})
         return {

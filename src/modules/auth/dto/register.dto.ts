@@ -1,4 +1,5 @@
-import {IsString, IsNumber, IsMobilePhone, Max, Min, IsEmail, IsNotEmpty, MaxLength, MinLength, IsPositive} from "class-validator"
+import {IsString, IsNumber, IsEnum, Max, Min, IsEmail, IsNotEmpty, MaxLength, MinLength, IsPositive} from "class-validator"
+import { Roles } from "../types/roles.enum"
 export class RegisterDto {
     @IsString()
     @IsEmail()
@@ -22,4 +23,7 @@ export class RegisterDto {
     @Max(120)
     @Min(1)
     age: number
+
+    @IsEnum(Roles)
+    role: Roles
 }
